@@ -45,3 +45,18 @@ select FirstName from Persons where marks > 72.6250;
 
 select *from Persons where marks > (select avg(marks) from Persons);  -- ***** dynamic query / sub query *****
 
+ALTER TABLE department
+ADD PRIMARY KEY (id);
+
+
+-- ****************EMPLOYEE*********************department
+create table employee(
+id int primary key,
+name varchar(50),
+deptid int,
+foreign key(deptid) references department(id)
+on update cascade   -- make update in child when changed in parent 
+on delete cascade -- make delete in child when changed in parent
+);
+
+drop table employee;
