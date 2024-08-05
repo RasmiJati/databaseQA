@@ -24,7 +24,6 @@ Insert into Student(rollNumber , fullName , address , marks) values
 (10,'Raywati Maharjan', 'Patan',90.55)
 ;
 
-select *from Student;
 
 -- create table named "Teacher"
 create table Teacher(
@@ -51,6 +50,7 @@ insert into Teacher(id, name, assignedStudentId, salary) values
 (10, 'Jack Lee', 6, 72000.00)
 ;
 
+select *from Student;
 select *from Teacher;
 
 -- update name from teacher 
@@ -69,7 +69,7 @@ select * from Student order by marks DESC limit 3;
 select *from Student order by marks Asc limit 3;
 
 -- Display only teacher name who name starts with letter "s"
-select *from Teacher where name like 'S%';
+select *from Teacher where teacherName like 'S%';
 
 -- Display only teacher name who name ends with letter "a"
 select *from Teacher where teacherName like '%a';
@@ -85,8 +85,32 @@ select teacherName from Teacher order by teacherName Asc;
 select teacherName from Teacher order by salary Desc limit 3;
 select *from Teacher;
 
+
+-- *************************************SUBQUERY******************************************************* 
+ -- List all teachers who have students with marks greater than 80.
+ select teacherName from Teacher where assignedStudentId in (select rollNumber from student where marks > 80);
+ 
+ -- List all students who are assigned to teachers with a salary greater than 70000.
+select fullName from Student where rollNumber in (select assignedStudentId from Teacher where salary > 70000);
+ 
+ 
+
 -- *****************************************JOIN********************************************************
 
 -- List all teachers with their assigned students' names.
 select teacherName as teacher , fullName as students from Teacher inner join Student on Teacher.assignedStudentId = Student.rollNumber;
+
+-- List all students with their respective teachers' names.
+ select fullName as studentName , teacherName from Student join Teacher on Student.rollNumber = Teacher.assignedStudentId;
+ 
+ 
+ -- ******************************************UNION****************************************************
+ 
+-- List all unique names from both teachers and students.
+SELECT teacherName FROM Teacher UNION SELECT fullName AS studentName FROM Student;
+
+-- List all teacher and student names along with their roles.
+SELECT teacherName AS name, 'Teacher' AS role FROM Teacher UNION SELECT fullName AS name, 'Student' AS role FROM Student;
+
+
 
