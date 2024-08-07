@@ -1,0 +1,9 @@
+call createEmployeeTable();
+call insetIntoEmployeesTable();
+call selectAllData();
+call emailHavingOfficeCode4();
+call selectFirstAndLastName();
+call jobTitleWithOfficeCode6();
+call selectJobTitleFirstAndLastName();
+call firstNameInDesc();
+call emailInAsc();
